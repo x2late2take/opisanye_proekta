@@ -12,7 +12,7 @@
 ![Используеммые структуры и объекты](https://www.plantuml.com/plantuml/png/bL0zJyCm4DtzAwnExH29sG9K682jbIh4W1YSv9fOE7QKk_8Xn7_dZ6siUiFJ-Tw7xhqjabxeD5aXEgiHvTuRH_9BI7wD_50oVA_aHLfybiLtbjpCiuK_oUpHaF5EiLMaEdYFytfJHBiMINV_rnsSVYqYX642HwYaDKYNl-nhbZw_949l5kYYBTB2oEfnlwhSxlLK70V-F9cUnXAq00zWXf5g18E9Ybxnx3YlDucWGq4gzHG9OIu4dyh8EN8vPr5QFxMPSClp6OYTNw0-REHh3pMGi-pUO55iwYq3HsqH4dZqZYFUUKUXfvXADeqiPOcOf5hce-kz45jm_McoFm00)
 
 # Внутренняя структура приложения:
-## Приложение "Змейка" состоит из нескольких основных компонентов:
+## Игра "Змейка" состоит из нескольких основных компонентов:
 
 * _SnakeGame_: Этот класс представляет основное состояние игры, включая размер игрового поля, объекты змейки, еды(фрукта), препятствий(тела змейки и границ поля), текущий счет, рекордный счет, флаг окончания игры и шрифт.
 * _Snake_: Этот класс представляет змейку на игровом поле. Он содержит список сегментов, образующих тело змейки, а также текущее направление движения.
