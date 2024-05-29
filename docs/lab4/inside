@@ -1,0 +1,61 @@
+@startuml
+class Point {
+    - x: int
+    - y: int
+    + Point(x: int, y: int)
+}
+
+class GameObject {
+    - position: Point
+    + GameObject(position: Point)
+    + draw(surface, block_size)
+}
+
+class Apple {
+    - position: Point
+    + Apple(position: Point)
+    + draw(surface, block_size)
+}
+
+class Obstacle {
+    - position: Point
+    + Obstacle(position: Point)
+    + draw(surface, block_size)
+}
+
+class Snake {
+    - segments: list<Point>
+    - direction: str
+    + Snake(start_segments: list<Point>, start_direction: str)
+    + move(block_size: int, game_width: int, game_height: int)
+    + grow(block_size: int)
+    + draw(surface, block_size)
+}
+
+class SnakeGame {
+    - gameWidth: int
+    - gameHeight: int
+    - snake: Snake
+    - apple: Apple
+    - obstacles: list<Obstacle>
+    - bombs: list<Bomb>
+    - score: int
+    - gameOver: bool
+    - font: Font
+    + SnakeGame(game_width: int, game_height: int)
+    + startGame()
+    + update()
+    + checkCollisionWithObstacles(position: Point): bool
+    + handleInput(input: str)
+    + generateApple(): Apple
+    + checkCollisions()
+    + drawScore(surface)
+    + drawObjects(surface, block_size)
+}
+
+Point -->  GameObject
+GameObject <|-- Apple
+GameObject <|-- Obstacle
+GameObject <|-- Snake
+SnakeGame --> Snake
+@enduml

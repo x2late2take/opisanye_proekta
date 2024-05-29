@@ -1,0 +1,39 @@
+@startuml
+
+class Point {
+    - x: int = 0
+    - y: int = 0
+}
+
+class Apple {
+    - position: Point = new Point()
+}
+
+class Obstacle {
+    - position: Point = new Point()
+}
+
+class Snake {
+    - segments: list<Point> = []
+    - direction: str = "UP"
+}
+
+class SnakeGame {
+    - gameWidth: int = 0
+    - gameHeight: int = 0
+    - snake: Snake = new Snake()
+    - apple: Apple = new Apple()
+    - obstacles: list<Obstacle> = []
+    - bombs: list<Bomb> = []
+    - score: int = 0
+    - highScore: int = 0
+    - gameOver: bool = false
+    - font: Font
+}
+
+Snake  --  SnakeGame
+Apple  --  SnakeGame
+Obstacle  --  SnakeGame
+
+
+@enduml
