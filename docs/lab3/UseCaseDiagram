@@ -1,0 +1,39 @@
+@startuml
+left to right direction
+
+actor Пользователь
+
+usecase "Нажимает клавиши\nклавиатуры" as UC1
+usecase "Направляет змейку" as UC2
+usecase "Открывает\nприложение" as UC3
+usecase "Отображает игровое поле" as UC4
+usecase "Змейка съедает еду" as UC5
+usecase "Змейка становится длиннее" as UC6
+usecase "Увеличивает счёт" as UC7
+usecase "Змейка врезается" as UC8
+usecase "Завершает игру" as UC9
+usecase "Отображает сообщение\nоб окончании игры" as UC10
+usecase "Нажимает кнопку\n"Новая игра"" as UC11
+usecase "Сбрасывает игровое поле\nи счёт" as UC12
+usecase "Сохраняет новый\nнаивысший счёт" as UC13
+usecase "Открывает таблицу\nлучших результатов" as UC14
+usecase "Отображает таблицу\nлучших результатов" as UC15
+
+Пользователь -- UC1
+Пользователь -- UC2
+Пользователь -- UC3
+Пользователь -- UC11
+Пользователь -- UC14
+
+UC1 -- UC2
+UC3 -- UC4
+UC2 -- UC5
+UC5 -- UC6
+UC6 -- UC7
+UC2 -- UC8
+UC8 -- UC9
+UC9 -- UC10
+UC11 -- UC12
+UC9 -- UC13
+UC14 -- UC15
+@enduml
