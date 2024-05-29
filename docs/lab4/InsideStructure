@@ -38,7 +38,6 @@ class SnakeGame {
     - snake: Snake
     - apple: Apple
     - obstacles: list<Obstacle>
-    - bombs: list<Bomb>
     - score: int
     - gameOver: bool
     - font: Font

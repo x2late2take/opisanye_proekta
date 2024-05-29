@@ -24,7 +24,6 @@ class SnakeGame {
     - snake: Snake = new Snake()
     - apple: Apple = new Apple()
     - obstacles: list<Obstacle> = []
-    - bombs: list<Bomb> = []
     - score: int = 0
     - highScore: int = 0
     - gameOver: bool = false
