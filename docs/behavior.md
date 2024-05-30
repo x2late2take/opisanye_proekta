@@ -2,17 +2,17 @@
 
 ## Диаграмма обновления состояния игры "Змейка"
 
-[Код диаграммы](lab5/gameprocess)
+[Посмотреть код диаграммы](lab5/gameprocess)
 ![Сост](https://www.plantuml.com/plantuml/png/dLPDJrD15DtFhvYm0XF-W0k3SU6IXKlZekAB4lf1sih6aDGQGCMa2qbeJ51PkFQrfT8-wFWNplr7djx9ovlcFUehXCmCRyuvzvux7yDMgrrfjj_MgeQ3TcJNqCT8EeZNRALbdrPgaNrdB7-UFtXXDpSVMLmWbXF4k86p3oqcc64Yn-pvYUqrf_cNzEQi7Bf_5vf2O5mvDJcUXatJmbYw59BtqYMYmxRlUUiRdgas5k7Um8A9CmmPy0_6O3vipt7BTee44whN6WVHitfbBw9eIlqF1Tynu8GZw2Q5MCuvEEPnfMMAcGj6S4GG9wSMrvc6AHT9i_yX7OqqPf_GvALqLJM1py0Jfqnhvqsqi_UaKQtkjdORzLRWfxn83ghLByI6XeZYBs9-SPXoo6wWGyxvrV6RGI4JQrPFZSKeB3n-Ow159fdv5wVBzZ80EjncrIcZMh8gqjD2zC90fdmSjVWJJiN3ZQ2sFZCu9-HBQ6I9uonkiIJET97YC1tBJhUh756NNqTAcMc4eKKIhlfO5zSLdGKd9-f-Q9PdeOw_Ae-LJUy7NAYUq_Epk12lethKvA5_lBzV3K_iIY9vC7rdw701OtEV4CMsT1EDyLTwqjLA33LqPchx9I-qdT1NQPKIhaWf89hLGwcxRt0AFiOlZgvyNNd3-pCY7zEza4w7dWgvvtckbIw7YNoGJ-nrPOuymImJAt7fOvOzEU4gPjdUyuRAqadVgldwycNTFeYQwnlBZgi6FDIkM2Pzv_9rZkyYvHznniTWReXzzfeUcgse_eh_6Vm3)
 
 ## Диаграмма обработки столкновения змейки с самой собой и границами
 
-[Код диаграмма](lab5/obrabotka)
+[Посмотреть код диаграммы](lab5/obrabotka)
 ![Столк](https://www.plantuml.com/plantuml/png/hL8zJeH05EuvnLp02rWeLp7HJYqKUw7GncGgevKKNc3OpMI1WTahVEz6-yqZ96GB4f9D83Eyx-TxBu_yjRXxATwU7ZFKY0ZoXGFF7PnKyEdRNDqO_68lxt3N1dzeC2gZbOgeb8XIaXp54cZXivcjoXyCyEZGgxg69-9JJKNgmPlDbiIpo9fd2gHq3jL019B72PgY2V21erL4fxsXqIjQC_abedmeXQMZpcnNMjwQRXaOMEtv3cjJVKkvqUrshKtk9I5fNFgv2pRwhyB0uJyN-yeVdk_vsvm0)
 
 ## Диаграмма последовательности обновления состояния игры
 
-[Код диаграмма](lab5/sostojania)
+[Посмотреть код диаграммы](lab5/sostojania)
 ![Состо](https://www.plantuml.com/plantuml/png/hLDDJi905DxFAUO2Ni25uIe4NP0WRR3k1HDrOTA5CRhHNg4W4mUhS8NltSZljKy3JOqQ9M6QllVzVFDcsZl9-fFiz7Za-eCicNWKMAEIQpppkK0fCmHzTobXmy4mxOypZtiyoHdAtU8TNebTuQNTkCMoNIf83zX8BZEPqcE1ABbpeoH9JLtj-LzvkK2aPkKyVr_5yti7dwdsFHxOkTGkEuXQblE6RnZYjmF_b6Dx8Vg6p3S4rgDbDMR0qdZDPZGm3RoYFMENX98cLxL0QLOeQyet4Hyn9qVDOcqcKwnrV5npDYB2XyeEipMSmW8pXUaq6gW8RkGr6W_4rBf7y6UTpZlm7xhTLqJdLylC5Sbkt3fgkst1OwDi6-JH-D3zGjvG7QViLAd7XH_QEm00)
 
 ## Документация к обновления состояния игры "Змейка"
@@ -23,10 +23,10 @@
 2. "Играет" - основное состояние, описывающее игровой процесс, включая движение змейки, проверку столкновений, обновление яблока, рост змейки, генерацию препятствий и завершение хода.
 
 * _Описание взаимодействия состояний_:
-- Игра начинается с инициализации, переходя в режим "Играет" после старта игры.
-- В режиме "Играет" происходит последовательный процесс: движение змейки, проверка столкновений (самой с собой и границами), обновление яблока, рост змейки, генерация нового яблока, генерация препятствия, завершение хода и начало нового хода.
-- Если происходит столкновение, игра переходит к состоянию "КонецИгры", где отображается результат игры.
-- После завершения игры можно сбросить игру и вернуться к начальному состоянию "Начало".
+Игра начинается с инициализации, переходя в режим "Играет" после старта игры.
+В режиме "Играет" происходит последовательный процесс: движение змейки, проверка столкновений (самой с собой и границами), обновление яблока, рост змейки, генерация нового яблока, генерация препятствия, завершение хода и начало нового хода.
+Если происходит столкновение, игра переходит к состоянию "КонецИгры", где отображается результат игры.
+После завершения игры можно сбросить игру и вернуться к начальному состоянию "Начало".
 
 * _Пример использования_: 
 Состояние "Обработка столкновений" позволяет игре корректно определить ситуацию, когда змейка сталкивается с препятствием или самой собой, что приводит к завершению игры в состоянии "КонецИгры". Диаграмма последовательности "Обновление состояния игры" показывает процесс от инициализации до завершения игры, подчеркивая важность ввода пользователя, обновления состояния и проверки условий для завершения игры.
