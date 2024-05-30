@@ -1,5 +1,5 @@
 @startuml
-
+' Определение классов и их атрибутов
 class Point {
     - x: int = 0
     - y: int = 0
@@ -23,16 +23,23 @@ class SnakeGame {
     - gameHeight: int = 0
     - snake: Snake = new Snake()
     - apple: Apple = new Apple()
-    - obstacles: list<Obstacle> = []
     - score: int = 0
     - highScore: int = 0
     - gameOver: bool = false
     - font: Font
 }
 
+' Отношения между объектами
 Snake  --  SnakeGame
 Apple  --  SnakeGame
 Obstacle  --  SnakeGame
 
-
+' Описание использования объектов
+SnakeGame : содержит объекты Snake, Apple и Obstacle
+SnakeGame : управляет игровым процессом и отслеживает счет
+Point : определяет позицию объектов на игровом поле
+Apple : представляет фрукт, который может быть съеден змейкой
+Obstacle : представляет собой координату хвоста змейки или границы поля, в которые змейка может врезаться
+Snake : представляет змейку, состоящую из сегментов и имеющую направление движения
 @enduml
+
