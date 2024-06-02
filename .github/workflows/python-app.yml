@@ -25,15 +25,3 @@ jobs:
         coveralls
       env:
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-    - name: Run SonarCloud analysis
-      uses: sonarsource/sonarcloud-github-action@master
-      with:
-        args: >
-          -Dsonar.projectKey=x2late2take_opisanye_proekta
-          -Dsonar.organization=x2late2take
-          -Dsonar.sources=game
-          -Dsonar.tests=test_snake_game.py
-          -Dsonar.python.version=3.8
-          -X
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
