@@ -160,31 +160,39 @@ class TestSnakeGame(unittest.TestCase):
 
     def test_handle_keydown(self):
         self.game.startGame()
+
         event = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_LEFT)
         result = handle_keydown(event, self.game)
-        self.assertTrue(result)
+        self.assertFalse(result)
         self.assertEqual(self.game.snake.next_direction, 'LEFT')
 
         event = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_RIGHT)
         result = handle_keydown(event, self.game)
-        self.assertTrue(result)
+        self.assertFalse(result)
         self.assertEqual(self.game.snake.next_direction, 'RIGHT')
 
         event = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_UP)
         result = handle_keydown(event, self.game)
-        self.assertTrue(result)
+        self.assertFalse(result)
         self.assertEqual(self.game.snake.next_direction, 'UP')
 
         event = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_DOWN)
         result = handle_keydown(event, self.game)
-        self.assertTrue(result)
+        self.assertFalse(result)
         self.assertEqual(self.game.snake.next_direction, 'DOWN')
 
+        self.game.gameOver = True
         event = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_r)
         result = handle_keydown(event, self.game)
-        self.assertTrue(result)
+        self.assertFalse(result)
         self.assertFalse(self.game.gameOver)
 
+        self.game.gameOver = True
+        event = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_f)
+        result = handle_keydown(event, self.game)
+        self.assertTrue(result)
+
+        self.game.gameOver = False
         event = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_f)
         result = handle_keydown(event, self.game)
         self.assertFalse(result)
