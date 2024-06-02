@@ -30,7 +30,7 @@ jobs:
       with:
         args: >
           -Dsonar.projectKey=x2late2take_opisanye_proekta
-          -Dsonar.organization=Юлия
+          -Dsonar.organization=x2late2take
           -Dsonar.sources=.
           -Dsonar.python.version=3.8
       env:
