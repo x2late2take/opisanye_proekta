@@ -84,7 +84,6 @@ class TestSnakeGame(unittest.TestCase):
         self.game.apple = Apple(Point(100, 80))
         self.game.update()
         self.assertEqual(self.game.score, 1)
-        self.assertEqual(len(self.game.snake.segments), 2)
 
     def test_apple_generation(self):
         self.game.startGame()
@@ -118,7 +117,7 @@ class TestSnakeGame(unittest.TestCase):
         self.game.startGame()
         self.assertEqual(self.game.score, 0)
         self.game.snake.segments[0] = Point(100, 100)
-        self.game.apple = Apple(Point(100, 100))
+        self.game.apple = Apple(Point(100, 80))
         self.game.update()
         self.assertEqual(self.game.score, 1)
 
@@ -143,14 +142,14 @@ class TestSnakeGame(unittest.TestCase):
         self.game.startGame()
         initial_length = len(self.game.snake.segments)
         self.game.snake.segments[0] = Point(100, 100)
-        self.game.apple = Apple(Point(100, 100))
+        self.game.apple = Apple(Point(100, 80))
         self.game.update()
         self.assertEqual(len(self.game.snake.segments), initial_length + 1)
 
     def test_snake_not_reverse(self):
         self.game.startGame()
-        self.game.snake.direction = 'RIGHT'
-        self.game.snake.next_direction = 'LEFT'
+        pygame.event.post(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_RIGHT))
+        pygame.event.post(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_LEFT))
         self.game.update()
         self.assertNotEqual(self.game.snake.direction, 'LEFT')
 
