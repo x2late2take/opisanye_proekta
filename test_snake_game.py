@@ -176,6 +176,7 @@ class TestSnakeGame(unittest.TestCase):
         self.assertFalse(result)
         self.assertEqual(self.game.snake.next_direction, 'UP')
 
+        self.game.snake.direction = "UP"
         event = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_DOWN)
         result = handle_keydown(event, self.game)
         self.assertFalse(result)
