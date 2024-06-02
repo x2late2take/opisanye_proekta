@@ -33,5 +33,6 @@ jobs:
           -Dsonar.organization=x2late2take
           -Dsonar.sources=.
           -Dsonar.python.version=3.8
+          -X
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
