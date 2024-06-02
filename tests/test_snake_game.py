@@ -1,6 +1,6 @@
 import unittest
 import pygame
-from game import SnakeGame, Snake, Point, Apple
+from game.game import SnakeGame, Snake, Point, Apple
 
 class TestSnakeGame(unittest.TestCase):
 
