@@ -82,7 +82,6 @@ class TestSnakeGame(unittest.TestCase):
         self.game.startGame()
         self.game.snake.segments[0] = Point(100, 100)
         self.game.apple.position = Point(100, 120)
-        self.game.snake.move(20, 800, 600)        
         self.game.update()
         self.assertEqual(self.game.score, 1)
         self.assertEqual(len(self.game.snake.segments), 2)
