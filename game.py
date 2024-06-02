@@ -42,8 +42,12 @@ class Snake:
         self.next_direction = start_direction  # Новая переменная для хранения следующего направления
 
     def move(self, block_size, game_width, game_height):
+        if self.next_direction not in ['UP', 'DOWN', 'LEFT', 'RIGHT']:
+            raise ValueError(f"Invalid direction: {self.next_direction}")
+
         self.direction = self.next_direction  # Обновляем текущее направление только здесь
         head = self.segments[0]
+        new_head = None
         if self.direction == 'UP':
             new_head = Point(head.x, head.y - block_size)
         elif self.direction == 'DOWN':
@@ -52,7 +56,7 @@ class Snake:
             new_head = Point(head.x - block_size, head.y)
         elif self.direction == 'RIGHT':
             new_head = Point(head.x + block_size, head.y)
-        
+
         self.segments.insert(0, new_head)
         self.segments.pop()
 

@@ -65,9 +65,14 @@ class TestSnakeGame(unittest.TestCase):
 
     def test_self_collision(self):
         self.game.startGame()
-        self.game.snake.segments = [Point(100, 100), Point(120, 100), Point(140, 100), Point(160, 100), Point(180, 100)]
-        self.game.snake.direction = 'LEFT'
-        self.game.snake.move(20, 900, 700)
+        self.game.snake.segments = [
+            Point(100, 100), Point(120, 100), Point(140, 100), 
+            Point(160, 100), Point(180, 100), Point(180, 120),
+            Point(160, 120), Point(140, 120), Point(120, 120),
+            Point(100, 120)
+        ]
+        self.game.snake.next_direction = 'LEFT'
+        self.game.snake.move(20, 800, 600)
         self.assertTrue(self.game.checkCollision())
 
     def test_invalid_position(self):
