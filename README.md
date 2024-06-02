@@ -9,6 +9,7 @@
 Это программа змейка по предмету [Основы разработки ПО](https://cs.petrsu.ru/~kulakov/courses/develop/2023/task-git.php)
 
 ## Ссылки на модели
+
 [Функциональные модели](docs/functions.md)
 
 [Описание структурных моделей](docs/struct.md)

@@ -1,5 +1,5 @@
 import unittest
-from game import SnakeGame, Snake, Point
+from game import SnakeGame, Snake, Point, Apple, pygame
 
 class TestSnakeGame(unittest.TestCase):
 
@@ -76,6 +76,42 @@ class TestSnakeGame(unittest.TestCase):
         self.game.startGame()
         self.game.snake.segments[0] = Point(-100, -100)
         self.assertTrue(self.game.checkCollision())
+
+    def test_apple_collision(self):
+        self.game.startGame()
+        self.game.snake.segments[0] = self.game.apple.position
+        self.game.update()
+        self.assertEqual(self.game.score, 1)
+        self.assertEqual(len(self.game.snake.segments), 2)
+
+    def test_apple_generation(self):
+        self.game.startGame()
+        initial_apple_position = self.game.apple.position
+        while self.game.apple.position == initial_apple_position:
+            self.game.apple = self.game.generateApple()
+        self.assertNotEqual(self.game.apple.position, initial_apple_position)
+
+    def test_snake_grow(self):
+        self.game.startGame()
+        initial_length = len(self.game.snake.segments)
+        self.game.snake.grow(20)
+        self.assertEqual(len(self.game.snake.segments), initial_length + 1)
+
+    def test_game_object_draw(self):
+        surface = pygame.Surface((800, 600))
+        apple = Apple(Point(100, 100))
+        apple.draw(surface, 20)
+        self.assertTrue(pygame.Surface.get_at(surface, (100, 100)) != (0, 0, 0, 255))
+
+    def test_change_direction(self):
+        self.game.startGame()
+        self.game.snake.next_direction = 'LEFT'
+        self.game.update()
+        self.assertEqual(self.game.snake.direction, 'LEFT')
+        self.game.snake.next_direction = 'UP'
+        self.game.update()
+        self.assertEqual(self.game.snake.direction, 'UP')
+
 
 if __name__ == "__main__":
     unittest.main()
