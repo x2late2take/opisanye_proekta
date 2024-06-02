@@ -32,7 +32,7 @@ jobs:
           -Dsonar.projectKey=x2late2take_opisanye_proekta
           -Dsonar.organization=x2late2take
           -Dsonar.sources=game
-          -Dsonar.tests=tests_snake_game.py
+          -Dsonar.tests=test_snake_game.py
           -Dsonar.python.version=3.8
           -X
       env:
