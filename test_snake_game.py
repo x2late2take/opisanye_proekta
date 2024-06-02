@@ -102,7 +102,7 @@ class TestSnakeGame(unittest.TestCase):
         surface = pygame.Surface((800, 600))
         apple = Apple(Point(100, 100))
         apple.draw(surface, 20)
-        self.assertTrue(pygame.Surface.get_at(surface, (100, 100)) != (0, 0, 0, 255))
+        self.assertTrue(surface.get_at((100, 100)) != (0, 0, 0, 255))
 
     def test_change_direction(self):
         self.game.startGame()
