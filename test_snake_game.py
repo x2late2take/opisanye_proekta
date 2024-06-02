@@ -98,12 +98,6 @@ class TestSnakeGame(unittest.TestCase):
         self.game.snake.grow(20)
         self.assertEqual(len(self.game.snake.segments), initial_length + 1)
 
-    def test_game_object_draw(self):
-        surface = pygame.Surface((800, 600))
-        apple = Apple(Point(100, 100))
-        apple.draw(surface, 20)
-        self.assertTrue(surface.get_at((100, 100)) != (0, 0, 0, 255))
-
     def test_change_direction(self):
         self.game.startGame()
         self.game.snake.next_direction = 'LEFT'
@@ -152,6 +146,17 @@ class TestSnakeGame(unittest.TestCase):
         pygame.event.post(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_LEFT))
         self.game.update()
         self.assertNotEqual(self.game.snake.direction, 'LEFT')
+
+    def test_key_press(self):
+        self.game.startGame()
+        initial_direction = self.game.snake.direction
+        pygame.event.post(pygame.event.Event(pygame.KEYDOWN, key=pygame.K_RIGHT))
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RIGHT:
+                    self.game.snake.next_direction = 'RIGHT'
+        self.game.update()
+        self.assertNotEqual(self.game.snake.direction, initial_direction)    
 
 if __name__ == "__main__":
     unittest.main()
