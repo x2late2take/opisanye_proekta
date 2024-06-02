@@ -67,7 +67,7 @@ class TestSnakeGame(unittest.TestCase):
     def test_self_collision(self):
         self.game.startGame()
         self.game.snake.segments = [
-            Point(100, 100), Point(120, 100), Point(120, 80), Point(100, 80), 
+            Point(100, 100), Point(120, 100), Point(120, 80), Point(100, 80), Point(100, 100)
         ]
         self.game.snake.move(20, 800, 600)
         self.assertTrue(self.game.checkCollision())
