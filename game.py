@@ -134,6 +134,25 @@ class SnakeGame:
         self.snake.draw(surface, block_size)
         self.apple.draw(surface, block_size)
 
+def handle_input(event, focused_input, width, height, speed):
+    if event.key == pygame.K_RETURN:
+        return False, width, height, speed, focused_input
+    elif event.key == pygame.K_BACKSPACE:
+        if focused_input == 'width':
+            width = width[:-1]
+        elif focused_input == 'height':
+            height = height[:-1]
+        elif focused_input == 'speed':
+            speed = speed[:-1]
+    else:
+        if focused_input == 'width' and event.unicode.isdigit():
+            width += event.unicode
+        elif focused_input == 'height' and event.unicode.isdigit():
+            height += event.unicode
+        elif focused_input == 'speed' and event.unicode.isdigit():
+            speed += event.unicode
+    return True, width, height, speed, focused_input
+
 def inputScreen():
     width = str(DEFAULT_WIDTH)
     height = str(DEFAULT_HEIGHT)
@@ -151,22 +170,7 @@ def inputScreen():
                 pygame.quit()
                 exit()
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RETURN:
-                    input_active = False
-                elif event.key == pygame.K_BACKSPACE:
-                    if focused_input == 'width':
-                        width = width[:-1]
-                    elif focused_input == 'height':
-                        height = height[:-1]
-                    elif focused_input == 'speed':
-                        speed = speed[:-1]
-                else:
-                    if focused_input == 'width' and event.unicode.isdigit():
-                        width += event.unicode
-                    elif focused_input == 'height' and event.unicode.isdigit():
-                        height += event.unicode
-                    elif focused_input == 'speed' and event.unicode.isdigit():
-                        speed += event.unicode
+                input_active, width, height, speed, focused_input = handle_input(event, focused_input, width, height, speed)
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if width_rect.collidepoint(event.pos):
@@ -197,6 +201,21 @@ def inputScreen():
 
     return width, height, speed
 
+def handle_keydown(event, game):
+    if event.key == pygame.K_LEFT and game.snake.direction != 'RIGHT':
+        game.snake.next_direction = 'LEFT'
+    elif event.key == pygame.K_RIGHT and game.snake.direction != 'LEFT':
+        game.snake.next_direction = 'RIGHT'
+    elif event.key == pygame.K_UP and game.snake.direction != 'DOWN':
+        game.snake.next_direction = 'UP'
+    elif event.key == pygame.K_DOWN and game.snake.direction != 'UP':
+        game.snake.next_direction = 'DOWN'
+    elif event.key == pygame.K_r and game.gameOver:
+        game.startGame()
+    elif event.key == pygame.K_f and game.gameOver:
+        return True
+    return False
+
 def gameLoop():
     width, height, speed = inputScreen()
     global window
@@ -209,17 +228,7 @@ def gameLoop():
             if event.type == pygame.QUIT:
                 running = False
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT and game.snake.direction != 'RIGHT':
-                    game.snake.next_direction = 'LEFT'
-                elif event.key == pygame.K_RIGHT and game.snake.direction != 'LEFT':
-                    game.snake.next_direction = 'RIGHT'
-                elif event.key == pygame.K_UP and game.snake.direction != 'DOWN':
-                    game.snake.next_direction = 'UP'
-                elif event.key == pygame.K_DOWN and game.snake.direction != 'UP':
-                    game.snake.next_direction = 'DOWN'
-                elif event.key == pygame.K_r and game.gameOver:
-                    game.startGame()
-                elif event.key == pygame.K_f and game.gameOver:
+                if handle_keydown(event, game):
                     width, height, speed = inputScreen()
                     window = pygame.display.set_mode((width, height))
                     game = SnakeGame(width, height, speed)
