@@ -1,8 +1,6 @@
 import unittest
 import pygame
-from unittest.mock import patch
-
-from game.game import SnakeGame, Snake, Point, Apple, inputScreen, handle_input, DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_SPEED
+from game.game import SnakeGame, Snake, Point, Apple, handle_keydown
 
 class TestSnakeGame(unittest.TestCase):
 
@@ -158,51 +156,38 @@ class TestSnakeGame(unittest.TestCase):
                 if event.key == pygame.K_RIGHT:
                     self.game.snake.next_direction = 'RIGHT'
         self.game.update()
-        self.assertNotEqual(self.game.snake.direction, initial_direction)
+        self.assertNotEqual(self.game.snake.direction, initial_direction)    
 
-    @patch('game.pygame.display.set_mode')
-    @patch('game.pygame.font.SysFont')
-    @patch('game.pygame.display.flip')
-    @patch('game.pygame.event.get')
-    def test_inputScreen_return_values(self, mock_event_get, mock_flip, mock_font, mock_set_mode):
-        mock_set_mode.return_value = pygame.Surface((800, 600))
-        mock_font.return_value.render.return_value = pygame.Surface((400, 40))
+    def test_handle_keydown(self):
+        self.game.startGame()
+        event = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_LEFT)
+        result = handle_keydown(event, self.game)
+        self.assertTrue(result)
+        self.assertEqual(self.game.snake.next_direction, 'LEFT')
 
-        events = [
-            pygame.event.Event(pygame.KEYDOWN, key=pygame.K_1, unicode='1'),
-            pygame.event.Event(pygame.KEYDOWN, key=pygame.K_2, unicode='2'),
-            pygame.event.Event(pygame.KEYDOWN, key=pygame.K_3, unicode='3'),
-            pygame.event.Event(pygame.KEYDOWN, key=pygame.K_RETURN),
-            pygame.event.Event(pygame.QUIT)
-        ]
-        mock_event_get.side_effect = [events, events, events, events, events, events, []]
+        event = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_RIGHT)
+        result = handle_keydown(event, self.game)
+        self.assertTrue(result)
+        self.assertEqual(self.game.snake.next_direction, 'RIGHT')
 
-        width, height, speed = inputScreen()
+        event = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_UP)
+        result = handle_keydown(event, self.game)
+        self.assertTrue(result)
+        self.assertEqual(self.game.snake.next_direction, 'UP')
 
-        self.assertEqual(width, 1123)
-        self.assertEqual(height, 123)
-        self.assertEqual(speed, DEFAULT_SPEED)
+        event = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_DOWN)
+        result = handle_keydown(event, self.game)
+        self.assertTrue(result)
+        self.assertEqual(self.game.snake.next_direction, 'DOWN')
 
-    def test_handle_input_return_values(self):
-        event_return = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_RETURN)
-        event_backspace = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_BACKSPACE)
-        event_digit = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_1, unicode='1')
-        event_invalid = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_a, unicode='a')
+        event = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_r)
+        result = handle_keydown(event, self.game)
+        self.assertTrue(result)
+        self.assertFalse(self.game.gameOver)
 
-        input_active, width, height, speed, focused_input = handle_input(event_return, 'width', '800', '600', '15')
-        self.assertFalse(input_active)
-
-        input_active, width, height, speed, focused_input = handle_input(event_backspace, 'width', '800', '600', '15')
-        self.assertTrue(input_active)
-        self.assertEqual(width, '80')
-
-        input_active, width, height, speed, focused_input = handle_input(event_digit, 'width', '800', '600', '15')
-        self.assertTrue(input_active)
-        self.assertEqual(width, '8001')
-
-        input_active, width, height, speed, focused_input = handle_input(event_invalid, 'width', '800', '600', '15')
-        self.assertTrue(input_active)
-        self.assertEqual(width, '800')    
+        event = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_f)
+        result = handle_keydown(event, self.game)
+        self.assertFalse(result)
 
 if __name__ == "__main__":
     unittest.main()
