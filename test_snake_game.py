@@ -113,7 +113,46 @@ class TestSnakeGame(unittest.TestCase):
         self.game.snake.next_direction = 'UP'
         self.game.update()
         self.assertEqual(self.game.snake.direction, 'UP')
+    
+    def test_score_increment(self):
+        self.game.startGame()
+        self.assertEqual(self.game.score, 0)
+        self.game.snake.segments[0] = Point(100, 100)
+        self.game.apple = Apple(Point(100, 100))
+        self.game.update()
+        self.assertEqual(self.game.score, 1)
 
+    def test_game_restart(self):
+        self.game.startGame()
+        self.game.snake.segments[0] = Point(0, 0)
+        self.game.snake.direction = 'LEFT'
+        self.game.update()
+        self.assertTrue(self.game.gameOver)
+        self.game.startGame()
+        self.assertFalse(self.game.gameOver)
+        self.assertEqual(self.game.score, 0)
+        self.assertEqual(len(self.game.snake.segments), 1)
+
+    def test_apple_not_on_snake(self):
+        self.game.startGame()
+        self.game.apple = self.game.generateApple()
+        for segment in self.game.snake.segments:
+            self.assertNotEqual(self.game.apple.position, segment)
+
+    def test_snake_growth_after_apple_collision(self):
+        self.game.startGame()
+        initial_length = len(self.game.snake.segments)
+        self.game.snake.segments[0] = Point(100, 100)
+        self.game.apple = Apple(Point(100, 100))
+        self.game.update()
+        self.assertEqual(len(self.game.snake.segments), initial_length + 1)
+
+    def test_snake_not_reverse(self):
+        self.game.startGame()
+        self.game.snake.direction = 'RIGHT'
+        self.game.snake.next_direction = 'LEFT'
+        self.game.update()
+        self.assertNotEqual(self.game.snake.direction, 'LEFT')
 
 if __name__ == "__main__":
     unittest.main()
