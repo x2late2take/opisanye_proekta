@@ -81,7 +81,7 @@ class TestSnakeGame(unittest.TestCase):
     def test_apple_collision(self):
         self.game.startGame()
         self.game.snake.segments[0] = Point(100, 100)
-        self.game.apple = Apple(Point(100, 120))
+        self.game.apple = Apple(Point(100, 100))
         self.game.update()
         self.assertEqual(self.game.score, 1)
         self.assertEqual(len(self.game.snake.segments), 2)
