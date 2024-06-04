@@ -1,6 +1,6 @@
 import unittest
 import pygame
-from game.game import SnakeGame, Snake, Point, Apple, handle_keydown
+from game.game import SnakeGame, Snake, Point, Apple, handle_keydown, handle_imput
 
 class TestSnakeGame(unittest.TestCase):
 
@@ -197,6 +197,49 @@ class TestSnakeGame(unittest.TestCase):
         event = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_f)
         result = handle_keydown(event, self.game)
         self.assertFalse(result)
+
+    def test_handle_input(self):
+        event = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_RETURN)
+        focused_input = 'width'
+        width, height, speed = "800", "600", "15"
+        result = handle_input(event, focused_input, width, height, speed)
+        self.assertEqual(result, (False, "800", "600", "15", focused_input))
+
+        event = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_BACKSPACE)
+        focused_input = 'width'
+        width, height, speed = "800", "600", "15"
+        result = handle_input(event, focused_input, width, height, speed)
+        self.assertEqual(result, (True, "80", "600", "15", focused_input))
+
+        event = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_BACKSPACE)
+        focused_input = 'height'
+        width, height, speed = "800", "600", "15"
+        result = handle_input(event, focused_input, width, height, speed)
+        self.assertEqual(result, (True, "800", "60", "15", focused_input))
+
+        event = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_BACKSPACE)
+        focused_input = 'speed'
+        width, height, speed = "800", "600", "15"
+        result = handle_input(event, focused_input, width, height, speed)
+        self.assertEqual(result, (True, "800", "600", "1", focused_input))
+
+        event = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_1, unicode='1')
+        focused_input = 'width'
+        width, height, speed = "800", "600", "15"
+        result = handle_input(event, focused_input, width, height, speed)
+        self.assertEqual(result, (True, "8001", "600", "15", focused_input))
+
+        event = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_1, unicode='1')
+        focused_input = 'height'
+        width, height, speed = "800", "600", "15"
+        result = handle_input(event, focused_input, width, height, speed)
+        self.assertEqual(result, (True, "800", "6001", "15", focused_input))
+
+        event = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_1, unicode='1')
+        focused_input = 'speed'
+        width, height, speed = "800", "600", "15"
+        result = handle_input(event, focused_input, width, height, speed)
+        self.assertEqual(result, (True, "800", "600", "151", focused_input))
 
 if __name__ == "__main__":
     unittest.main()
