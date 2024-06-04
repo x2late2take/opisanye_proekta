@@ -340,7 +340,7 @@ class TestSnakeGame(unittest.TestCase):
     @patch('pygame.display.set_mode')
     @patch('pygame.quit')
     @patch('game.game.handle_input')
-    def test_input_screen_mouse_click(self, mock_handle_input, mock_quit, mock_set_mode, mock_event_get, mock_flip, mock_rect, mock_SysFont):
+    def test_input_screen_mouse_click_width(self, mock_handle_input, mock_quit, mock_set_mode, mock_event_get, mock_flip, mock_rect, mock_SysFont):
         mock_set_mode.return_value = MagicMock()
         mock_event_get.side_effect = [
             [pygame.event.Event(pygame.MOUSEBUTTONDOWN, pos=(210, 160))],
@@ -348,6 +348,50 @@ class TestSnakeGame(unittest.TestCase):
             [pygame.event.Event(pygame.QUIT)]
         ]
         mock_handle_input.return_value = (False, '800', '600', '15', 'width')
+
+        width, height, speed = inputScreen()
+
+        self.assertEqual(width, 800)
+        self.assertEqual(height, 600)
+        self.assertEqual(speed, 15)
+
+    @patch('pygame.font.SysFont')
+    @patch('pygame.draw.rect')
+    @patch('pygame.display.flip')
+    @patch('pygame.event.get')
+    @patch('pygame.display.set_mode')
+    @patch('pygame.quit')
+    @patch('game.game.handle_input')
+    def test_input_screen_mouse_click_height(self, mock_handle_input, mock_quit, mock_set_mode, mock_event_get, mock_flip, mock_rect, mock_SysFont):
+        mock_set_mode.return_value = MagicMock()
+        mock_event_get.side_effect = [
+            [pygame.event.Event(pygame.MOUSEBUTTONDOWN, pos=(210, 260))],
+            [pygame.event.Event(pygame.KEYDOWN, key=pygame.K_RETURN)],
+            [pygame.event.Event(pygame.QUIT)]
+        ]
+        mock_handle_input.return_value = (False, '800', '600', '15', 'height')
+
+        width, height, speed = inputScreen()
+
+        self.assertEqual(width, 800)
+        self.assertEqual(height, 600)
+        self.assertEqual(speed, 15)
+
+    @patch('pygame.font.SysFont')
+    @patch('pygame.draw.rect')
+    @patch('pygame.display.flip')
+    @patch('pygame.event.get')
+    @patch('pygame.display.set_mode')
+    @patch('pygame.quit')
+    @patch('game.game.handle_input')
+    def test_input_screen_mouse_click_speed(self, mock_handle_input, mock_quit, mock_set_mode, mock_event_get, mock_flip, mock_rect, mock_SysFont):
+        mock_set_mode.return_value = MagicMock()
+        mock_event_get.side_effect = [
+            [pygame.event.Event(pygame.MOUSEBUTTONDOWN, pos=(210, 360))],
+            [pygame.event.Event(pygame.KEYDOWN, key=pygame.K_RETURN)],
+            [pygame.event.Event(pygame.QUIT)]
+        ]
+        mock_handle_input.return_value = (False, '800', '600', '15', 'speed')
 
         width, height, speed = inputScreen()
 
