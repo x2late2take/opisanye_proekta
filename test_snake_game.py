@@ -7,6 +7,7 @@ class TestSnakeGame(unittest.TestCase):
 
     def setUp(self):
         self.game = SnakeGame(800, 600, 15)
+        self.game.snake = Snake([Point(100, 100)], 'UP')
 
     def test_default_initialization(self):
         self.game.startGame()
