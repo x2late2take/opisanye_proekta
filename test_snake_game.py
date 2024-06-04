@@ -263,7 +263,7 @@ class TestSnakeGame(unittest.TestCase):
         mock_SnakeGame.return_value = game_instance
         
         gameLoop()
-        self.assertTrue(self.game.isGameOverRendered)
+        self.assertTrue(game_instance.isGameOverRendered)
         
         mock_set_mode.assert_called_with((800, 600))
         self.assertTrue(mock_quit.called)
