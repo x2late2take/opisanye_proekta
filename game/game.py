@@ -24,9 +24,12 @@ clock = pygame.time.Clock()
 
 # Классы и функции игры
 class Point:
-    def __init__(self, x, y):
+    def __init__(self, x, y):    
         self.x = x
         self.y = y
+
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y
 
 class GameObject:
     def __init__(self, position: Point):
