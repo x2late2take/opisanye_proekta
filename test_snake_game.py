@@ -357,6 +357,7 @@ class TestSnakeGame(unittest.TestCase):
 
     def test_grow_and_draw(self):
         self.game.startGame()
+        self.game.snake = Snake([Point(100, 100)], 'UP')
         initial_length = len(self.game.snake.segments)
 
         self.game.snake.grow(20)
