@@ -364,20 +364,20 @@ class TestSnakeGame(unittest.TestCase):
         self.assertEqual(len(self.game.snake.segments), initial_length + 1)
         self.assertEqual(self.game.snake.segments[-1], Point(100, 120))
 
-        self.game.snake.direction = 'DOWN'
-        self.game.snake.grow(20)
-        self.assertEqual(len(self.game.snake.segments), initial_length + 2)
-        self.assertEqual(self.game.snake.segments[-1], Point(100, 80))
-
         self.game.snake.direction = 'LEFT'
         self.game.snake.grow(20)
+        self.assertEqual(len(self.game.snake.segments), initial_length + 2)
+        self.assertEqual(self.game.snake.segments[-1], Point(120, 120))
+
+        self.game.snake.direction = 'DOWN'
+        self.game.snake.grow(20)
         self.assertEqual(len(self.game.snake.segments), initial_length + 3)
-        self.assertEqual(self.game.snake.segments[-1], Point(120, 100))
+        self.assertEqual(self.game.snake.segments[-1], Point(100, 120))
 
         self.game.snake.direction = 'RIGHT'
         self.game.snake.grow(20)
         self.assertEqual(len(self.game.snake.segments), initial_length + 4)
-        self.assertEqual(self.game.snake.segments[-1], Point(80, 100))
+        self.assertEqual(self.game.snake.segments[-1], Point(100, 100))
 
         with patch('pygame.draw.rect') as mock_draw_rect:
             surface = MagicMock()
