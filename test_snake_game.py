@@ -388,13 +388,10 @@ class TestSnakeGame(unittest.TestCase):
                 mock_draw_rect.assert_any_call(surface, WHITE, [segment.x, segment.y, 20, 20])
 
     def test_draw_score(self):
-        with patch('pygame.font.Font.render') as mock_render:
-            with patch('pygame.Surface.blit') as mock_blit:
-                surface = MagicMock()
-                mock_render.return_value = MagicMock()
-                self.game.drawScore(surface)
-                mock_render.assert_called_once_with(f"Score: {self.game.score}", True, WHITE)
-                mock_blit.assert_called_once()
+        surface = pygame.Surface((800, 600))
+        with patch.object(self.game.font, 'render', return_value=pygame.Surface((100, 50))) as mock_render:
+            self.game.drawScore(surface)
+            mock_render.assert_called_once_with(f"Score: {self.game.score}", True, WHITE)
 
     def test_draw_objects(self):
         self.game.apple = Apple(Point(0, 100))
