@@ -355,7 +355,7 @@ class TestSnakeGame(unittest.TestCase):
         self.assertEqual(height, 600)
         self.assertEqual(speed, 15)
 
-    def test_grow_and_draw(self):
+    def test_grow(self):
         self.game.startGame()
         self.game.snake = Snake([Point(100, 100)], 'UP')
         initial_length = len(self.game.snake.segments)
@@ -379,12 +379,32 @@ class TestSnakeGame(unittest.TestCase):
         self.assertEqual(len(self.game.snake.segments), initial_length + 4)
         self.assertEqual(self.game.snake.segments[-1], Point(100, 100))
 
+    def test_draw(self):
         with patch('pygame.draw.rect') as mock_draw_rect:
             surface = MagicMock()
             self.game.snake.draw(surface, 20)
             self.assertEqual(mock_draw_rect.call_count, len(self.game.snake.segments))
             for segment in self.game.snake.segments:
                 mock_draw_rect.assert_any_call(surface, WHITE, [segment.x, segment.y, 20, 20])
+
+    def test_draw_score(self):
+        with patch('pygame.font.Font.render') as mock_render:
+            with patch('pygame.Surface.blit') as mock_blit:
+                surface = MagicMock()
+                mock_render.return_value = MagicMock()
+                self.game.drawScore(surface)
+                mock_render.assert_called_once_with(f"Score: {self.game.score}", True, WHITE)
+                mock_blit.assert_called_once()
+
+    def test_draw_objects(self):
+        self.game.apple = Apple(Point(0, 100))
+        with patch('pygame.draw.rect') as mock_draw_rect:
+            surface = MagicMock()
+            self.game.drawObjects(surface, BLOCK_SIZE)
+            self.assertEqual(mock_draw_rect.call_count, len(self.game.snake.segments) + 1)
+            for segment in self.game.snake.segments:
+                mock_draw_rect.assert_any_call(surface, WHITE, [segment.x, segment.y, BLOCK_SIZE, BLOCK_SIZE])
+            mock_draw_rect.assert_any_call(surface, pygame.Color('green'), [self.game.apple.position.x, self.game.apple.position.y, BLOCK_SIZE, BLOCK_SIZE])
 
 if __name__ == "__main__":
     unittest.main()
