@@ -1,6 +1,6 @@
 import unittest
 import pygame
-from game.game import SnakeGame, Snake, Point, Apple, handle_keydown, handle_imput
+from game.game import SnakeGame, Snake, Point, Apple, handle_keydown, handle_input
 
 class TestSnakeGame(unittest.TestCase):
 
