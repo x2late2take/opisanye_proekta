@@ -354,5 +354,35 @@ class TestSnakeGame(unittest.TestCase):
         self.assertEqual(height, 600)
         self.assertEqual(speed, 15)
 
+    def test_grow_and_draw(self):
+        self.game.startGame()
+        initial_length = len(self.snake.segments)
+
+        self.snake.grow(20)
+        self.assertEqual(len(self.snake.segments), initial_length + 1)
+        self.assertEqual(self.snake.segments[-1], Point(100, 120))
+
+        self.snake.direction = 'DOWN'
+        self.snake.grow(20)
+        self.assertEqual(len(self.snake.segments), initial_length + 2)
+        self.assertEqual(self.snake.segments[-1], Point(100, 80))
+
+        self.snake.direction = 'LEFT'
+        self.snake.grow(20)
+        self.assertEqual(len(self.snake.segments), initial_length + 3)
+        self.assertEqual(self.snake.segments[-1], Point(120, 100))
+
+        self.snake.direction = 'RIGHT'
+        self.snake.grow(20)
+        self.assertEqual(len(self.snake.segments), initial_length + 4)
+        self.assertEqual(self.snake.segments[-1], Point(80, 100))
+
+        with patch('pygame.draw.rect') as mock_draw_rect:
+            surface = MagicMock()
+            self.snake.draw(surface, 20)
+            self.assertEqual(mock_draw_rect.call_count, len(self.snake.segments))
+            for segment in self.snake.segments:
+                mock_draw_rect.assert_any_call(surface, WHITE, [segment.x, segment.y, 20, 20])
+
 if __name__ == "__main__":
     unittest.main()
