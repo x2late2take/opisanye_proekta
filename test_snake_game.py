@@ -1,6 +1,6 @@
 import unittest
 import pygame
-from game.game import SnakeGame, Snake, Point, Apple, handle_keydown, handle_input, gameLoop, inputScreen, BLACK, BLOCK_SIZE, RED
+from game.game import SnakeGame, Snake, Point, Apple, handle_keydown, handle_input, gameLoop, inputScreen, BLACK, BLOCK_SIZE, RED, DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_SPEED, WHITE
 from unittest.mock import patch, MagicMock
 
 class TestSnakeGame(unittest.TestCase):
