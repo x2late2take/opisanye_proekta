@@ -242,6 +242,7 @@ class TestSnakeGame(unittest.TestCase):
         result = handle_input(event, focused_input, width, height, speed)
         self.assertEqual(result, (True, "800", "600", "151", focused_input))
 
+# тест гейм лупа
     @patch('pygame.display.set_mode')
     @patch('pygame.font.SysFont')
     @patch('pygame.event.get')
@@ -253,7 +254,7 @@ class TestSnakeGame(unittest.TestCase):
         mock_inputScreen.return_value = (800, 600, 15)
         
         mock_event_get.side_effect = [
-            [pygame.event.Event(pygame.QUIT)],  # First loop, quit event
+            [pygame.event.Event(pygame.QUIT)],
         ]
         
         game_instance = MagicMock(spec=SnakeGame)
@@ -291,6 +292,67 @@ class TestSnakeGame(unittest.TestCase):
         mock_set_mode.assert_called_with((800, 600))
         self.assertTrue(mock_quit.called)
         self.assertTrue(mock_handle_keydown.called)
+
+# тест импут скрина
+    @patch('pygame.font.SysFont')
+    @patch('pygame.draw.rect')
+    @patch('pygame.display.flip')
+    @patch('pygame.event.get')
+    @patch('pygame.display.set_mode')
+    @patch('pygame.quit')
+    def test_input_screen_quit(self, mock_quit, mock_set_mode, mock_event_get, mock_flip, mock_rect, mock_SysFont):
+        mock_set_mode.return_value = MagicMock()
+        mock_event_get.side_effect = [
+            [pygame.event.Event(pygame.QUIT)],
+        ]
+
+        with self.assertRaises(SystemExit):
+            inputScreen()
+
+        mock_quit.assert_called_once()
+
+    @patch('pygame.font.SysFont')
+    @patch('pygame.draw.rect')
+    @patch('pygame.display.flip')
+    @patch('pygame.event.get')
+    @patch('pygame.display.set_mode')
+    @patch('pygame.quit')
+    @patch('game.game.handle_input')
+    def test_input_screen_keydown(self, mock_handle_input, mock_quit, mock_set_mode, mock_event_get, mock_flip, mock_rect, mock_SysFont):
+        mock_set_mode.return_value = MagicMock()
+        mock_event_get.side_effect = [
+            [pygame.event.Event(pygame.KEYDOWN, key=pygame.K_RETURN)],
+            [pygame.event.Event(pygame.QUIT)]
+        ]
+        mock_handle_input.return_value = (False, '800', '600', '15', 'width')
+
+        width, height, speed = inputScreen()
+
+        self.assertEqual(width, 800)
+        self.assertEqual(height, 600)
+        self.assertEqual(speed, 15)
+
+    @patch('pygame.font.SysFont')
+    @patch('pygame.draw.rect')
+    @patch('pygame.display.flip')
+    @patch('pygame.event.get')
+    @patch('pygame.display.set_mode')
+    @patch('pygame.quit')
+    @patch('game.game.handle_input')
+    def test_input_screen_mouse_click(self, mock_handle_input, mock_quit, mock_set_mode, mock_event_get, mock_flip, mock_rect, mock_SysFont):
+        mock_set_mode.return_value = MagicMock()
+        mock_event_get.side_effect = [
+            [pygame.event.Event(pygame.MOUSEBUTTONDOWN, pos=(210, 160))],
+            [pygame.event.Event(pygame.KEYDOWN, key=pygame.K_RETURN)],
+            [pygame.event.Event(pygame.QUIT)]
+        ]
+        mock_handle_input.return_value = (False, '800', '600', '15', 'width')
+
+        width, height, speed = inputScreen()
+
+        self.assertEqual(width, 800)
+        self.assertEqual(height, 600)
+        self.assertEqual(speed, 15)
 
 if __name__ == "__main__":
     unittest.main()
