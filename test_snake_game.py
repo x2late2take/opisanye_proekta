@@ -244,6 +244,13 @@ class TestSnakeGame(unittest.TestCase):
         self.assertEqual(result, (True, "800", "600", "151", focused_input))
 
 # тест гейм лупа
+    def test_game_loop_over_rendered(self):
+        self.game.startGame()
+        self.game.snake.segments[0] = Point(0, 0)
+        self.game.snake.direction = 'LEFT'
+        self.game.update()
+        self.assertTrue(self.game.isGameOverRendered)
+    
     @patch('pygame.display.set_mode')
     @patch('pygame.font.SysFont')
     @patch('pygame.event.get')
@@ -260,12 +267,9 @@ class TestSnakeGame(unittest.TestCase):
         
         game_instance = MagicMock(spec=SnakeGame)
         game_instance.gameOver = False
-        game_instance.isGameOverRendered = False
         mock_SnakeGame.return_value = game_instance
         
         gameLoop()
-        self.assertTrue(game_instance.isGameOverRendered)
-        
         mock_set_mode.assert_called_with((800, 600))
         self.assertTrue(mock_quit.called)
     
