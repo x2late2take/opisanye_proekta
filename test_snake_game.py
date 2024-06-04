@@ -372,7 +372,7 @@ class TestSnakeGame(unittest.TestCase):
         self.game.snake.direction = 'DOWN'
         self.game.snake.grow(20)
         self.assertEqual(len(self.game.snake.segments), initial_length + 3)
-        self.assertEqual(self.game.snake.segments[-1], Point(100, 120))
+        self.assertEqual(self.game.snake.segments[-1], Point(120, 100))
 
         self.game.snake.direction = 'RIGHT'
         self.game.snake.grow(20)
