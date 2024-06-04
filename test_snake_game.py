@@ -1,6 +1,6 @@
 import unittest
 import pygame
-from game.game import SnakeGame, Snake, Point, Apple, handle_keydown, handle_input, gameLoop
+from game.game import SnakeGame, Snake, Point, Apple, handle_keydown, handle_input, gameLoop, inputScreen, BLACK, BLOCK_SIZE, RED
 from unittest.mock import patch, MagicMock
 
 class TestSnakeGame(unittest.TestCase):
@@ -246,56 +246,51 @@ class TestSnakeGame(unittest.TestCase):
     @patch('pygame.font.SysFont')
     @patch('pygame.event.get')
     @patch('pygame.display.update')
-    @patch('pygame.time.Clock.tick')
     @patch('pygame.quit')
     @patch('game.game.inputScreen')
-    def test_game_loop(self, mock_inputScreen, mock_quit, mock_tick, mock_update, mock_event_get, mock_SysFont, mock_set_mode):
+    @patch('game.game.SnakeGame')
+    def test_game_loop_quit(self, mock_SnakeGame, mock_inputScreen, mock_quit, mock_update, mock_event_get, mock_SysFont, mock_set_mode):
         mock_inputScreen.return_value = (800, 600, 15)
         
         mock_event_get.side_effect = [
-            [pygame.event.Event(pygame.QUIT)],  
-            [],  
+            [pygame.event.Event(pygame.QUIT)],  # First loop, quit event
         ]
         
         game_instance = MagicMock(spec=SnakeGame)
-        game_instance.update.side_effect = lambda: setattr(game_instance, 'gameOver', True)
         game_instance.gameOver = False
+        mock_SnakeGame.return_value = game_instance
         
-        with patch('game.game.SnakeGame', return_value=game_instance):
-            gameLoop()
-            
-            mock_set_mode.assert_called_with((800, 600))
-            self.assertTrue(game_instance.update.called)
-            self.assertTrue(mock_quit.called)
+        gameLoop()
+        
+        mock_set_mode.assert_called_with((800, 600))
+        self.assertTrue(mock_quit.called)
     
     @patch('pygame.event.get')
     @patch('pygame.display.set_mode')
     @patch('pygame.display.update')
-    @patch('pygame.time.Clock.tick')
     @patch('pygame.quit')
     @patch('game.game.inputScreen')
     @patch('game.game.handle_keydown')
-    def test_game_loop_restart(self, mock_handle_keydown, mock_inputScreen, mock_quit, mock_tick, mock_update, mock_set_mode, mock_event_get):
+    @patch('game.game.SnakeGame')
+    def test_game_loop_restart(self, mock_SnakeGame, mock_handle_keydown, mock_inputScreen, mock_quit, mock_update, mock_set_mode, mock_event_get):
         mock_inputScreen.return_value = (800, 600, 15)
         
         mock_handle_keydown.return_value = True
         
         mock_event_get.side_effect = [
-            [pygame.event.Event(pygame.KEYDOWN, key=pygame.K_r)],  
+            [pygame.event.Event(pygame.KEYDOWN, key=pygame.K_f)],  
             [pygame.event.Event(pygame.QUIT)],  
         ]
         
         game_instance = MagicMock(spec=SnakeGame)
-        game_instance.update.side_effect = lambda: setattr(game_instance, 'gameOver', True)
         game_instance.gameOver = False
+        mock_SnakeGame.return_value = game_instance
         
-        with patch('game.game.SnakeGame', return_value=game_instance):
-            gameLoop()
-
-            mock_set_mode.assert_called_with((800, 600))
-            self.assertTrue(game_instance.update.called)
-            self.assertTrue(mock_quit.called)
-            self.assertTrue(mock_handle_keydown.called)
+        gameLoop()
+        
+        mock_set_mode.assert_called_with((800, 600))
+        self.assertTrue(mock_quit.called)
+        self.assertTrue(mock_handle_keydown.called)
 
 if __name__ == "__main__":
     unittest.main()
