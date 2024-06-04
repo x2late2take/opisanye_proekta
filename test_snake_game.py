@@ -260,6 +260,7 @@ class TestSnakeGame(unittest.TestCase):
         
         game_instance = MagicMock(spec=SnakeGame)
         game_instance.gameOver = False
+        game_instance.isGameOverRendered = False
         mock_SnakeGame.return_value = game_instance
         
         gameLoop()
