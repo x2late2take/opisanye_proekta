@@ -162,6 +162,10 @@ def inputScreen():
     input_active = True
     font = pygame.font.SysFont(None, 35)
 
+    width_rect = pygame.Rect(200, 150, 400, 40)
+    height_rect = pygame.Rect(200, 250, 400, 40)
+    speed_rect = pygame.Rect(200, 350, 400, 40)
+
     while input_active:
         window.fill(BLACK)
 
