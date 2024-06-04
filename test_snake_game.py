@@ -55,6 +55,7 @@ class TestSnakeGame(unittest.TestCase):
         self.game.snake.segments[0] = Point(0, 0)
         self.game.snake.direction = 'LEFT'
         self.game.update()
+        self.game.gameLoop()
         self.assertTrue(self.game.gameOver)
 
     def test_no_collision(self):
