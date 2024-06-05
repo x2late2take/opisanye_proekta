@@ -262,6 +262,7 @@ class TestSnakeGame(unittest.TestCase):
 
         game_instance = MagicMock(spec=SnakeGame)
         game_instance.gameOver = True
+        game_instance.isGameOverRendered = False
         mock_font_instance = MagicMock()
         mock_font.return_value = mock_font_instance
         game_instance.font = mock_font_instance
