@@ -1,5 +1,5 @@
 [![CI/CD GitHub Actions](https://github.com/x2late2take/opisanye_proekta/actions/workflows/python-app.yml/badge.svg)](https://github.com/x2late2take/opisanye_proekta/actions/workflows/python-app.yml)
-[![Coverage Status](https://coveralls.io/repos/github/x2late2take/opisanye_proekta/badge.svg)](https://coveralls.io/github/x2late2take/opisanye_proekta)
+[![Coverage Status](https://coveralls.io/repos/github/x2late2take/opisanye_proekta/badge.svg?branch=main)](https://coveralls.io/github/x2late2take/opisanye_proekta?branch=main)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=x2late2take_opisanye_proekta&metric=alert_status)](https://sonarcloud.io/dashboard?id=x2late2take_opisanye_proekta)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=x2late2take_opisanye_proekta&metric=bugs)](https://sonarcloud.io/summary/new_code?id=x2late2take_opisanye_proekta)
 [![Code smells](https://sonarcloud.io/api/project_badges/measure?project=x2late2take_opisanye_proekta&metric=code_smells)](https://sonarcloud.io/dashboard?id=x2late2take_opisanye_proekta)
