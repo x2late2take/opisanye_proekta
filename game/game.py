@@ -96,7 +96,6 @@ class SnakeGame:
         self.apple = self.generateApple()
         self.score = 0
         self.gameOver = False
-        self.isGameOverRendered = False
         self.font = pygame.font.SysFont(None, 35)
 
     def startGame(self):
@@ -104,7 +103,6 @@ class SnakeGame:
         self.apple = self.generateApple()
         self.score = 0
         self.gameOver = False
-        self.isGameOverRendered = False
 
     def generateApple(self):
         return Apple(Point(random.randint(0, self.gameWidth // BLOCK_SIZE - 1) * BLOCK_SIZE,
@@ -251,8 +249,7 @@ def gameLoop():
         game.drawObjects(window, BLOCK_SIZE)
         game.drawScore(window)
 
-        if game.gameOver and not game.isGameOverRendered:
-            game.isGameOverRendered = True
+        if game.gameOver:
             gameOverText = game.font.render("Game Over! Press R to Restart or F to Change Settings", True, RED)
             window.blit(gameOverText, [width // 2 - gameOverText.get_width() // 2, height // 2])
 
