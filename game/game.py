@@ -244,7 +244,6 @@ def gameLoop():
                     game = SnakeGame(width, height, speed)
 
         game.update()
-
         window.fill(BLACK)
         game.drawObjects(window, BLOCK_SIZE)
         game.drawScore(window)
