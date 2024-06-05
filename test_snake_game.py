@@ -55,7 +55,6 @@ class TestSnakeGame(unittest.TestCase):
         self.game.snake.segments[0] = Point(0, 0)
         self.game.snake.direction = 'LEFT'
         self.game.update()
-        self.game.gameLoop()
         self.assertTrue(self.game.gameOver)
 
     def test_no_collision(self):
@@ -268,7 +267,7 @@ class TestSnakeGame(unittest.TestCase):
         mock_set_mode.assert_called_with((800, 600))
         self.assertTrue(mock_quit.called)
         self.assertTrue(game_instance.isGameOverRendered)
-        
+
     @patch('pygame.display.set_mode')
     @patch('pygame.font.SysFont')
     @patch('pygame.event.get')
