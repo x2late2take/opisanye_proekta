@@ -245,13 +245,14 @@ class TestSnakeGame(unittest.TestCase):
 
 # тест гейм лупа
     @patch('pygame.font.Font.render')
+    @patch('pygame.font.Font')
     @patch('pygame.event.get')
     @patch('pygame.display.set_mode')
     @patch('pygame.display.update')
     @patch('pygame.quit')
     @patch('game.game.inputScreen')
     @patch('game.game.SnakeGame')
-    def test_game_loop_game_over(self, mock_SnakeGame, mock_inputScreen, mock_quit, mock_update, mock_set_mode, mock_event_get, mock_font_render):
+    def test_game_loop_game_over(self, mock_SnakeGame, mock_inputScreen, mock_quit, mock_update, mock_set_mode, mock_event_get, mock_font, mock_font_render):
         mock_inputScreen.return_value = (800, 600, 15)
 
         mock_event_get.side_effect = [
@@ -261,7 +262,9 @@ class TestSnakeGame(unittest.TestCase):
 
         game_instance = MagicMock(spec=SnakeGame)
         game_instance.gameOver = True
-        game_instance.font = MagicMock()
+        mock_font_instance = MagicMock()
+        mock_font.return_value = mock_font_instance
+        game_instance.font = mock_font_instance
         mock_SnakeGame.return_value = game_instance
 
         gameLoop()
@@ -269,7 +272,7 @@ class TestSnakeGame(unittest.TestCase):
         mock_set_mode.assert_called_with((800, 600))
         self.assertTrue(mock_quit.called)
         self.assertTrue(game_instance.isGameOverRendered)
-        mock_font_render.assert_called_once_with("Game Over! Press R to Restart or F to Change Settings", True, RED)
+        mock_font_instance.render.assert_called_once_with("Game Over! Press R to Restart or F to Change Settings", True, RED)
 
     @patch('pygame.display.set_mode')
     @patch('pygame.font.SysFont')
