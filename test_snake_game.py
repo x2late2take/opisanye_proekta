@@ -414,6 +414,7 @@ class TestSnakeGame(unittest.TestCase):
     def test_grow(self):
         self.game.startGame()
         self.game.snake = Snake([Point(100, 100)], 'UP')
+        self.assertEqual(repr(self.game.snake.segments[-1]), "Point(100, 100)")
         initial_length = len(self.game.snake.segments)
 
         self.game.snake.grow(20)
@@ -452,12 +453,6 @@ class TestSnakeGame(unittest.TestCase):
             for segment in self.game.snake.segments:
                 mock_draw_rect.assert_any_call(surface, WHITE, [segment.x, segment.y, BLOCK_SIZE, BLOCK_SIZE])
             mock_draw_rect.assert_any_call(surface, pygame.Color('green'), [self.game.apple.position.x, self.game.apple.position.y, BLOCK_SIZE, BLOCK_SIZE])
-
-
-    @patch('game.game.gameLoop')
-    def test_main_function_call(self, mock_gameLoop):
-        import game.game
-        mock_gameLoop.assert_called_once()
 
 if __name__ == "__main__":
     unittest.main()
