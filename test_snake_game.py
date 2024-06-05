@@ -444,12 +444,13 @@ class TestSnakeGame(unittest.TestCase):
             for segment in self.game.snake.segments:
                 mock_draw_rect.assert_any_call(surface, WHITE, [segment.x, segment.y, 20, 20])
 
+    @patch('pygame.Surface')
     @patch('pygame.font.Font.render')
-    def test_draw_score(self, mock_render):
+    def test_draw_score(self, mock_render, MockSurface):
         game = SnakeGame(800, 600, 15)
         game.font = MagicMock()
         game.score = 42
-        surface = MagicMock()
+        surface = MockSurface()
 
         game.drawScore(surface)
 
