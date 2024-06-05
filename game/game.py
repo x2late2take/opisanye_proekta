@@ -251,7 +251,7 @@ def gameLoop():
         game.drawObjects(window, BLOCK_SIZE)
         game.drawScore(window)
 
-        if game.gameOver:
+        if game.gameOver and not game.isGameOverRendered:
             game.isGameOverRendered = True
             gameOverText = game.font.render("Game Over! Press R to Restart or F to Change Settings", True, RED)
             window.blit(gameOverText, [width // 2 - gameOverText.get_width() // 2, height // 2])
